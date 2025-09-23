@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fabian A. Dittrich — AI & Data Science</title>
+  <meta name="description" content="Fabian A. Dittrich — AI & Data Science. Practical NLP/RAG, evaluation‑driven ML, and privacy‑first automation."/>
+  <style>
+    /* =====================================================
+       Minimal Pastel → Single‑accent Navy (refined)
+       One image total • Clear, professional copy
+       ===================================================== */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body { margin: 0; -webkit-font-smoothing: antialiased; line-height: 1.7; }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+
+    :root{
+      --bg:#f7f6f2;     /* paper cream */
+      --ink:#151b2b;    /* deep ink */
+      --muted:#5f6678;  /* slate */
+      --card:#ffffff;   /* cards */
+      --line:#e7e3da;   /* hairline */
+      --accent:#0f2f66; /* single accent: deep navy */
+      --shadow: 0 8px 26px rgba(18,20,30,.06);
+      --radius: 18px;
+      --noise: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23n)" opacity=".035"/></svg>');
+      --scanlines: linear-gradient(rgba(0,0,0,.06) 1px, transparent 1px);
+      --scan-opacity: 0; /* toggled via JS */
+    }
+
+    body{
+      color:var(--ink);
+      background:
+        radial-gradient(900px 540px at 110% -20%, rgba(15,47,102,.06), transparent 60%),
+        radial-gradient(900px 540px at -20% -10%, rgba(15,47,102,.05), transparent 60%),
+        var(--bg);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica Neue, Arial;
+    }
+    body::after{ /* optional CRT */
+      content:""; position: fixed; inset:0; z-index:3; pointer-events:none;
+      background: var(--scanlines); background-size: 100% 3px; opacity: var(--scan-opacity);
+      mix-blend-mode: multiply; animation: crt 3.3s infinite steps(60, end);
+    }
+    @keyframes crt { 0%,100%{opacity:var(--scan-opacity)} 50%{opacity: calc(var(--scan-opacity)*.85)} }
+
+    /* ---------- LAYOUT: slim sidebar + wide stage ---------- */
+    .layout{ display:grid; grid-template-columns: 220px 1fr; min-height: 100dvh; }
+
+    aside.sidebar{
+      position: sticky; top:0; align-self: start; height:100dvh; display:flex; flex-direction:column; gap:16px; padding:20px 16px; border-right:1px solid var(--line);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.88)),
+        var(--noise);
+      backdrop-filter: saturate(120%) blur(1.5px);
+    }
+    .brand{ display:flex; align-items:center; gap:10px; }
+    .badge{ width:34px; height:34px; border-radius:10px; display:grid; place-items:center; font-weight:900; color:#fff; background: var(--accent); box-shadow: 0 2px 10px rgba(15,47,102,.22); }
+    .brand h1{ font-size:1.05rem; margin:0; letter-spacing:.2px; }
+    .tagline{ color:var(--muted); margin-top:-6px; font-size:.93rem; }
+
+    nav.menu{ display:flex; flex-direction:column; gap:6px; padding-top:2px; }
+    nav.menu a{ padding:7px 9px; border-radius:10px; border:1px solid transparent; font-weight:650; }
+    nav.menu a:hover{ border-color: var(--line); background:#fff; }
+    nav.menu a.active{ background: rgba(15,47,102,.08); border-color: rgba(15,47,102,.18); }
+
+    .contact-mini{ margin-top:auto; padding-top:10px; border-top:1px dashed var(--line); color:var(--muted); font-size:.94rem; }
+    .contact-mini a{ text-decoration: underline; text-decoration-color: rgba(15,47,102,.45); text-underline-offset: 3px; }
+
+    main.content{ padding:24px 18px 44px; }
+    .container{ width:min(1000px, 100%); margin:0 auto; }
+
+    /* ---------- COMPONENTS ---------- */
+    .section{ margin-bottom:22px; }
+    .headline{ display:flex; align-items:center; gap:6px; margin:0 0 10px; }
+    .dot{ width:7px; height:7px; border-radius:50%; background: var(--accent); box-shadow: 0 0 0 4px rgba(15,47,102,.12); }
+    h2{ font-size:1.35rem; margin:0; letter-spacing:.2px; }
+
+    .stage{ display:grid; grid-template-columns: 1.15fr .85fr; gap:14px; }
+    .panel{ background:#fff; border:1px solid var(--line); border-radius: var(--radius); padding:14px; box-shadow: var(--shadow); }
+
+    .lead{ color:var(--muted); font-size:1.03rem; }
+    .cta{ display:flex; gap:8px; margin-top:14px; flex-wrap:wrap; }
+    .btn{ padding:9px 12px; border-radius:10px; border:1px solid var(--line); background:#fff; font-weight:700; }
+    .btn:hover{ border-color:#d9d3c6; box-shadow: 0 8px 18px rgba(18,20,30,.06); }
+    .btn-primary{ background: var(--accent); color:white; border:none; box-shadow: 0 8px 20px rgba(15,47,102,.25); }
+
+    /* ---------- IMAGE (single) ---------- */
+    .frame{ position:relative; border-radius:16px; overflow:hidden; border:1px solid var(--line); background:#fff; box-shadow: var(--shadow); }
+    .frame .img-cover{ width:100%; aspect-ratio: 4 / 5; object-fit: cover; }
+    .frame .caption{ padding:8px 10px; color:var(--muted); font-size:.95rem; border-top:1px solid var(--line); background:#fff; }
+
+    /* Simple chips */
+    .tag{ display:inline-block; padding:8px 10px; border-radius:999px; border:1px solid var(--line); background:#fff; font-weight:650; font-size:.95rem; }
+    .badge-chip{ display:inline-block; padding:8px 10px; border-radius:12px; background: rgba(15,47,102,.08); border:1px solid rgba(15,47,102,.18); font-weight:650; font-size:.95rem; }
+    .xp{ margin:0; padding:0 0 0 18px; color:var(--muted); }
+    .xp li{ margin:6px 0; }
+
+    /* CONTACT */
+    .contact-card{ display:grid; grid-template-columns: 1fr auto; align-items:center; gap:12px; }
+
+    footer{ padding:20px 0 50px; color:var(--muted); }
+
+    /* Toggle widget */
+    .ux-toggle{ position: fixed; right:14px; bottom:14px; z-index:9; display:flex; gap:8px; }
+    .toggle{ cursor:pointer; padding:9px 11px; border-radius:12px; border:1px solid var(--line); background: #ffffff; font-weight:700; font-size:.9rem; letter-spacing:.2px; }
+    .toggle:hover{ box-shadow: 0 8px 18px rgba(18,20,30,.06); }
+
+    /* Responsive */
+    @media (max-width: 1100px){ .stage{ grid-template-columns: 1fr; } }
+    @media (max-width: 720px){
+      .layout{ grid-template-columns: 1fr; }
+      aside.sidebar{ position: relative; height: auto; }
+      main.content{ padding:20px 16px 50px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="badge">FD</div>
+        <div>
+          <h1>Fabian A. Dittrich</h1>
+          <div class="tagline">AI & Data Science — practical, private, reliable</div>
+        </div>
+      </div>
+
+      <nav class="menu">
+        <a href="#about" class="active">About</a>
+        <a href="#tech">Tech</a>
+        <a href="#projects">Projects</a>
+        <a href="#experience">Experience</a>
+        <a href="#contact">Say hi</a>
+      </nav>
+
+      <div class="contact-mini">
+        <div><strong>Email:</strong> <a href="mailto:fabian@pinal.de">fabian@pinal.de</a></div>
+        <div><strong>Phone:</strong> <a href="tel:+4915753624242">+49 1575 36 24242</a></div>
+      </div>
+    </aside>
+
+    <!-- Content -->
+    <main class="content">
+      <div class="container">
+
+        <!-- HERO: refined copy + single portrait image (ONLY IMAGE ON PAGE) -->
+        <section class="section" id="top">
+          <div class="stage">
+            <div class="panel">
+              <div class="headline"><div class="dot"></div><h2>Hi, I’m Fabian</h2></div>
+              <p class="lead">I build dependable AI & data solutions with a focus on language: retrieval/NLP, evaluation‑driven ML, and privacy‑first automation. Calm, collaborative, and tailored to your context.</p>
+              <div class="cta">
+                <a class="btn-primary btn" href="#contact">Get in touch</a>
+                <a class="btn" href="#projects">View projects</a>
+              </div>
+            </div>
+            <figure class="frame">
+              <!-- Replace photo.jpg with your headshot file name -->
+              <img class="img-cover" src="Fabian_Dittrich_Bild-1.jpg" alt="Portrait of Fabian A. Dittrich"/>
+              <figcaption class="caption">Let’s keep things practical and kind.</figcaption>
+            </figure>
+          </div>
+        </section>
+
+        <!-- ABOUT (concise) -->
+        <section class="section" id="about">
+          <div class="panel">
+            <div class="headline"><div class="dot"></div><h2>About</h2></div>
+            <p class="lead">Between cultures and languages, I learned to care about clarity. I like small, well‑crafted systems that respect time and privacy — shipped with care, iterated with evidence.</p>
+            <div class="lead" style="margin:12px 0 8px">Languages</div>
+            <div style="display:flex; flex-wrap:wrap; gap:8px;">
+              <span class="badge-chip" aria-label="German level native">German — Native</span>
+              <span class="badge-chip" aria-label="Spanish level native">Spanish — Native</span>
+              <span class="badge-chip" aria-label="English level C1">English — C1</span>
+              <span class="badge-chip" aria-label="Russian level B1">Russian — B1</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- TECH (skills + toolbox) -->
+        <section class="section" id="tech">
+          <div class="headline"><div class="dot"></div><h2>Tech</h2></div>
+          <div class="panel">
+            <div class="lead" style="margin-bottom:10px">Fields</div>
+            <div style="display:flex; flex-wrap:wrap; gap:8px;">
+              <span class="tag">Deep Learning</span>
+              <span class="tag">NLP & Retrieval</span>
+              <span class="tag">Evaluation & Testing</span>
+              <span class="tag">Data Mining</span>
+              <span class="tag">Data Analysis</span>
+            </div>
+            <hr style="border:none;border-top:1px solid var(--line); margin:14px 0">
+            <div class="lead" style="margin-bottom:10px">Toolbox</div>
+            <div style="display:grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap:8px;">
+              <span class="badge-chip">Python</span>
+              <span class="badge-chip">R</span>
+              <span class="badge-chip">SQL</span>
+              <span class="badge-chip">Docker</span>
+              <span class="badge-chip">Redis</span>
+              <span class="badge-chip">MongoDB</span>
+              <span class="badge-chip">Neo4j</span>
+              <span class="badge-chip">GraphDB</span>
+              <span class="badge-chip">Hadoop</span>
+              <span class="badge-chip">Linux</span>
+              <span class="badge-chip">macOS</span>
+              <span class="badge-chip">Windows</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- PROJECTS (concise, AI/DS‑focused) -->
+        <section class="section" id="projects">
+          <div class="headline"><div class="dot"></div><h2>Selected projects</h2></div>
+          <div class="panel">
+            <ul class="xp">
+              <li><strong>Knowledge assistant (RAG).</strong> Calm, cited answers over internal docs. Lightweight evaluation harness.</li>
+              <li><strong>Validation automation (GxP).</strong> Template‑driven documents & review workflows with traceability.</li>
+              <li><strong>On‑prem LLM deployment.</strong> Containerized, API‑first stack with monitoring and A/B tests.</li>
+              <li><strong>Data Mining Cup — Winner 2023.</strong> Ensemble approach with disciplined validation on retail ML task.</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- EXPERIENCE (compact) -->
+        <section class="section" id="experience">
+          <div class="headline"><div class="dot"></div><h2>Experience</h2></div>
+          <div class="panel">
+            <ul class="xp">
+              <li><strong>AI Solutions Engineer</strong> (Jan 2025 – present) — Algorithm design, in‑house LLMs, APIs, validation automation; onboarding & stakeholder collaboration.</li>
+              <li><strong>Master’s thesis</strong> (Jun 2024 – Dec 2024) — Software‑validation automation in GxP; RAG‑style knowledge system.</li>
+              <li><strong>Working Student</strong> (Jan 2020 – Aug 2021) — Data evaluation; documentation; onsite project assistance.</li>
+              <li><strong>Intern</strong> (Jan 2019 – Jul 2019) — Translation; member support; event prep; research.</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- CONTACT -->
+        <section class="section" id="contact">
+          <div class="panel contact-card">
+            <div>
+              <div class="headline"><div class="dot"></div><h2>Say hi</h2></div>
+              <p class="lead">If this resonates, I’d be glad to hear from you. A short note is perfect.</p>
+              <p><strong>Email:</strong> <a href="mailto:fabian@pinal.de">fabian@pinal.de</a> &nbsp;•&nbsp; <strong>Phone:</strong> <a href="tel:+4915753624242">+49 1575 36 24242</a></p>
+            </div>
+            <a class="btn-primary btn" href="mailto:fabian@pinal.de?subject=Hello%20Fabian">Write a note</a>
+          </div>
+        </section>
+
+        <footer>
+          <small>© <script>document.write(new Date().getFullYear())</script> Fabian A. Dittrich — AI & Data Science</small>
+        </footer>
+      </div>
+    </main>
+  </div>
+
+  <!-- Small UX toggle -->
+  <div class="ux-toggle" aria-live="polite">
+    <button class="toggle" id="crtToggle" aria-pressed="false">CRT</button>
+  </div>
+  <script>
+    const body = document.body;
+    const btn = document.getElementById('crtToggle');
+    const saved = localStorage.getItem('crt');
+    if(saved === 'on'){ body.style.setProperty('--scan-opacity', '.12'); btn.setAttribute('aria-pressed','true'); }
+    btn.addEventListener('click', ()=>{
+      const on = btn.getAttribute('aria-pressed') === 'true';
+      btn.setAttribute('aria-pressed', String(!on));
+      body.style.setProperty('--scan-opacity', on ? '0' : '.12');
+      localStorage.setItem('crt', on ? 'off' : 'on');
+    });
+
+    // active link highlight on scroll
+    const links = document.querySelectorAll('nav.menu a');
+    const sections = [...links].map(a => document.querySelector(a.getAttribute('href')));
+    const onScroll = () => {
+      let i = sections.findIndex(s => s.getBoundingClientRect().top > 120);
+      if(i === -1) i = sections.length - 1; else i = Math.max(0, i-1);
+      links.forEach(l => l.classList.remove('active'));
+      links[i]?.classList.add('active');
+    };
+    document.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  </script>
+</body>
+</html>
