@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Fabian A. Dittrich — AI & Data Science</title>
   <meta name="description" content="Fabian A. Dittrich — AI & Data Science. Practical NLP/RAG, evaluation-driven ML, and privacy-first automation."/>
-  <!-- Styles bleiben unverändert -->
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <div class="layout">
@@ -56,12 +56,48 @@
 
         <!-- ABOUT -->
         <section class="section" id="about">
-          <!-- bleibt gleich -->
+          <div class="panel">
+            <div class="headline"><div class="dot"></div><h2>About</h2></div>
+            <p class="lead">Between cultures and languages, I learned to care about clarity. I like small, well-crafted systems that respect time and privacy — shipped with care, iterated with evidence.</p>
+            <div class="lead" style="margin:12px 0 8px">Languages</div>
+            <div style="display:flex; flex-wrap:wrap; gap:8px;">
+              <span class="badge-chip">German — Native</span>
+              <span class="badge-chip">Spanish — Native</span>
+              <span class="badge-chip">English — C1</span>
+              <span class="badge-chip">Russian — B1</span>
+            </div>
+          </div>
         </section>
 
         <!-- TECH -->
         <section class="section" id="tech">
-          <!-- bleibt gleich -->
+          <div class="headline"><div class="dot"></div><h2>Tech</h2></div>
+          <div class="panel">
+            <div class="lead" style="margin-bottom:10px">Fields</div>
+            <div style="display:flex; flex-wrap:wrap; gap:8px;">
+              <span class="tag">Deep Learning</span>
+              <span class="tag">NLP & Retrieval</span>
+              <span class="tag">Evaluation & Testing</span>
+              <span class="tag">Data Mining</span>
+              <span class="tag">Data Analysis</span>
+            </div>
+            <hr class="divider">
+            <div class="lead" style="margin-bottom:10px">Toolbox</div>
+            <div class="grid-4">
+              <span class="badge-chip">Python</span>
+              <span class="badge-chip">R</span>
+              <span class="badge-chip">SQL</span>
+              <span class="badge-chip">Docker</span>
+              <span class="badge-chip">Redis</span>
+              <span class="badge-chip">MongoDB</span>
+              <span class="badge-chip">Neo4j</span>
+              <span class="badge-chip">GraphDB</span>
+              <span class="badge-chip">Hadoop</span>
+              <span class="badge-chip">Linux</span>
+              <span class="badge-chip">macOS</span>
+              <span class="badge-chip">Windows</span>
+            </div>
+          </div>
         </section>
 
         <!-- PROJECTS -->
@@ -79,7 +115,15 @@
 
         <!-- EXPERIENCE -->
         <section class="section" id="experience">
-          <!-- bleibt gleich -->
+          <div class="headline"><div class="dot"></div><h2>Experience</h2></div>
+          <div class="panel">
+            <ul class="xp">
+              <li><strong>AI Solutions Engineer</strong> (Jan 2025 – present) — Algorithm design, in-house LLMs, APIs, validation automation; onboarding & stakeholder collaboration.</li>
+              <li><strong>Master’s thesis</strong> (Jun 2024 – Dec 2024) — Software-validation automation in GxP; RAG-style knowledge system.</li>
+              <li><strong>Working Student</strong> (Jan 2020 – Aug 2021) — Data evaluation; documentation; onsite project assistance.</li>
+              <li><strong>Intern</strong> (Jan 2019 – Jul 2019) — Translation; member support; event prep; research.</li>
+            </ul>
+          </div>
         </section>
 
         <!-- CONTACT -->
@@ -101,6 +145,10 @@
     </main>
   </div>
 
-  <!-- Scripts bleiben unverändert -->
+  <!-- UX toggle -->
+  <div class="ux-toggle" aria-live="polite">
+    <button class="toggle" id="crtToggle" aria-pressed="false">CRT</button>
+  </div>
+  <script src="script.js"></script>
 </body>
 </html>
